@@ -79,6 +79,16 @@ linker flag prevents a console window from appearing alongside the overlay.
 `scripts/package.ps1` then bundles the executable together with `README.md`
 and `LICENSE` into `dist/dbd-ping-overlay-windows-amd64.zip`.
 
+`cmd/dbd-ping-overlay/rsrc_windows_amd64.syso` embeds an application manifest
+that requests Common Controls v6, which the UI toolkit requires to create
+its controls correctly. `go build` picks it up automatically. To regenerate
+it after changing `cmd/dbd-ping-overlay/winres/winres.json`:
+
+```powershell
+cd cmd/dbd-ping-overlay
+go run github.com/tc-hib/go-winres@latest make --arch amd64 --out rsrc
+```
+
 ## Releases
 
 Tagged releases are built automatically by GitHub Actions.
