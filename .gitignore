@@ -1,0 +1,30 @@
+# Binaries and build output
+/dbd-ping-overlay
+/dbd-ping-overlay.exe
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/bin/
+/dist/
+
+# Test artifacts
+*.test
+*.out
+coverage.*
+
+# Go workspace / module cache files
+go.work
+go.work.sum
+
+# Editor and OS files
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Local environment / config overrides
+.env
+.env.*
+*.local.json
