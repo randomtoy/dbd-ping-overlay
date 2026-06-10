@@ -140,6 +140,10 @@ Closing the window shuts the application down cleanly.
 
 ## Troubleshooting
 
+- **Logs** — the application writes a log file, `dbd-ping-overlay.log`, in
+  the same folder as the executable. The release binary is built without a
+  console window, so this file is the easiest way to see startup errors if
+  the overlay does not appear.
 - **DBD process not found** — the overlay shows "Dead by Daylight is not
   running". Make sure the game is running, or that `--process-name` matches
   the actual executable name.

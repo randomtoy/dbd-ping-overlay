@@ -8,6 +8,7 @@
 *.dylib
 /bin/
 /dist/
+*.log
 
 # Test artifacts
 *.test
