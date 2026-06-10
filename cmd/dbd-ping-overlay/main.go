@@ -63,5 +63,17 @@ func openLogWriter() (io.Writer, func()) {
 		return os.Stdout, func() {}
 	}
 
-	return io.MultiWriter(os.Stdout, f), func() { f.Close() }
+	return fanoutWriter{os.Stdout, f}, func() { f.Close() }
+}
+
+// fanoutWriter writes to every underlying writer, ignoring errors from
+// individual writers so that a broken stdout (as in a -H windowsgui binary
+// with no console) cannot prevent the log file from receiving output.
+type fanoutWriter []io.Writer
+
+func (fw fanoutWriter) Write(p []byte) (int, error) {
+	for _, w := range fw {
+		w.Write(p)
+	}
+	return len(p), nil
 }
