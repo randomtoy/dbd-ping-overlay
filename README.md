@@ -65,14 +65,44 @@ This runs with default settings: it looks for
 `DeadByDaylight-Win64-Shipping.exe`, refreshes every 2 seconds, and pings
 with 4 packets at a 1 second timeout each.
 
-## Building a release binary
+## Build
 
 ```powershell
-go build -ldflags="-H windowsgui" -o dbd-ping-overlay.exe ./cmd/dbd-ping-overlay
+go test ./...
+go vet ./...
+.\scripts\build.ps1
+.\scripts\package.ps1
 ```
 
-The `-H windowsgui` flag prevents a console window from appearing alongside
-the overlay.
+`scripts/build.ps1` produces `dist/dbd-ping-overlay.exe`. The `-H windowsgui`
+linker flag prevents a console window from appearing alongside the overlay.
+`scripts/package.ps1` then bundles the executable together with `README.md`
+and `LICENSE` into `dist/dbd-ping-overlay-windows-amd64.zip`.
+
+## Releases
+
+Tagged releases are built automatically by GitHub Actions.
+
+To create a release:
+
+```powershell
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The Windows executable is attached to the GitHub Release as a zip archive.
+
+## GitHub Pages
+
+A simple static page is available in `docs/`.
+
+To enable it:
+
+1. Open repository Settings.
+2. Go to Pages.
+3. Set source to "Deploy from a branch".
+4. Select `main` branch and `/docs` folder.
+5. Save.
 
 ## Configuration
 
@@ -133,7 +163,6 @@ Closing the window shuts the application down cleanly.
 - A system tray icon with show/hide and quit actions.
 - A transparent, click-through overlay mode.
 - Region detection based on the server IP's ASN/geolocation.
-- Packaged Windows releases (installer or standalone zip).
 
 ## Project layout
 

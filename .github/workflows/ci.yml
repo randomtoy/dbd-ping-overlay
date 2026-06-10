@@ -6,7 +6,8 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build-and-test:
+    name: Build and test
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -15,7 +16,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.25"
+          go-version-file: go.mod
 
       - name: Download dependencies
         run: go mod download
